@@ -9,7 +9,7 @@ lazy_load
    :target: https://travis-ci.org/kutoga/lazy-load
    :alt: Latest Travis CI build status
 
-A minimalistic interface that allow lazy evaluation of expressions / function results / ...
+A minimalistic interface that allows lazy evaluation of expressions / function calls / ...
 
 Usage
 -----

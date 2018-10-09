@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""lazy_load - A minimalistic interface that allow lazy evaluation of expressions / function results / ..."""
+"""lazy_load - A minimalistic interface that allows lazy evaluation of expressions / function calls / ..."""
 
 from ._lazy_load import lazy, lz, lazy_func, lf, ℒ, lazy_class, lz, force_eval, fe
 
