@@ -5,10 +5,10 @@ from lazy_object_proxy import Proxy
 import inspect
 
 _T = TypeVar('T')
-def lazy(f: Callable[..., _T], *args: str, **kwargs: str) -> _T:
-    if not callable(f):
-        raise ValueError('Invalid target function.')
-    return Proxy(lambda: f(*args, **kwargs))
+def lazy(target: Callable[..., _T], *args: str, **kwargs: str) -> _T:
+    if not callable(target):
+        raise ValueError('Invalid target.')
+    return Proxy(lambda: target(*args, **kwargs))
 lz = lazy
 
 _A, _R = TypeVar('A'), TypeVar('R')
