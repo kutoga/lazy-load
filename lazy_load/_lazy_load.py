@@ -17,9 +17,13 @@ class _LazyFunc:
         @wraps(original_function)
         def _lazy_function(*args, **kwargs):
             return lazy(lambda: original_function(*args, **kwargs))
+        _lazy_function.__wrapped_non_lazy_function__ = original_function
         return _lazy_function
-    def __getitem__(self, original_function: Callable[[_A], _R]) -> Callable[[_A], _R]:
-        return self(original_function)
+    def __getitem__(self, original_functions: Callable) -> Callable:
+        if isinstance(original_functions, tuple):
+            return [self(original_function) for original_function in original_functions]
+        else:
+            return self(original_functions)
 lazy_func = _LazyFunc()
 lf = lazy_func
 ℒ = lazy_func
@@ -28,14 +32,16 @@ def lazy_class(cls: Type) -> Type:
     for name, f in inspect.getmembers(cls, predicate=inspect.isfunction):
         if name and name[0] == '_':
             continue
-        if get_type_hints(f).get('return', None) is not None:
+        if get_type_hints(f).get('return', type(None)) is not type(None):
             setattr(cls, name, lazy_func[f])
     return cls
 lc = lazy_class
 
 def force_eval(obj: Any) -> Any:
-    if type(obj) == Proxy:
+    if type(obj) is Proxy:
         return obj.__wrapped__
+    if callable(obj) and hasattr(obj, '__wrapped_non_lazy_function__'):
+        return obj.__wrapped_non_lazy_function__
     return obj
 fe = force_eval
 

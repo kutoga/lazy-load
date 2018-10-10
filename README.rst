@@ -1,4 +1,4 @@
-lazy_load
+ℒazy-ℒoad
 =========
 
 .. image:: https://img.shields.io/pypi/v/lazy_load.svg
@@ -10,6 +10,15 @@ lazy_load
    :alt: Latest Travis CI build status
 
 A minimalistic interface that allows lazy evaluation of expressions / function calls / ...
+
+TODO:
+
+- Add examples
+- Create README
+- Comment code
+- pypi
+- Add more tests: E.g. for properties, force_eval for callables
+- Tox config
 
 Usage
 -----
