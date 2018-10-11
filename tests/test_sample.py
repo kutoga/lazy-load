@@ -129,7 +129,7 @@ def test_lazy_class():
     assert evaluated
     assert res == 1
     
-def test_force_eval():
+def test_force_eval_on_objects():
     evaluated = False
     def do_something(x, y):
         nonlocal evaluated
@@ -139,3 +139,55 @@ def test_force_eval():
     assert not evaluated
     force_eval(res)
     assert evaluated
+
+def test_force_eval_on_callables():
+    evaluated = False
+    def do_something():
+        nonlocal evaluated
+        evaluated = True
+    do_something_lazy = ℒ[do_something]
+    assert do_something_lazy is not do_something
+    assert fe(do_something_lazy) is do_something
+    assert not evaluated
+
+def test_multiple_lazy_on_expression():
+    evaluated = False
+    def add(x, y):
+        nonlocal evaluated
+        evaluated = True
+        return x + y
+    
+    res = lazy(lambda: add(1, 2))
+    assert res is not add
+    res2 = lazy(res)
+    assert res is res2
+    assert not evaluated
+    assert res == 3
+    assert evaluated
+    assert res2 == 3
+
+    evaluated = False
+    res = lazy(lazy(lazy(lambda: add(1, 2))))
+    assert res is not add
+    assert not evaluated
+    assert res == 3
+    assert evaluated
+
+def test_multiple_lazy_onfunction():
+    evaluated = False
+    def add(x, y):
+        nonlocal evaluated
+        evaluated = True
+        return x + y
+    
+    add_l1 = ℒ[add]
+    add_l2 = ℒ[add_l1]
+    
+    assert add_l1 is not add
+    assert add_l1 is add_l2
+    res = add_l2(1, 2)
+    assert not evaluated
+    assert res == 3
+    assert evaluated    
+
+
