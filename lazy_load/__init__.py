@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-"""lazy_load - A minimalistic interface that allows lazy evaluation of expressions / function calls / ..."""
+"""
+ℒazy-ℒoad - A minimalistic interface that allows the lazy evaluation of expressions.
+Additional functions and wrappers allow it to easily use the lazy evaluation for functions
+and classes.
+"""
 
 from ._lazy_load import lazy, lz, lazy_func, lf, ℒ, lazy_class, lc, force_eval, fe
 
