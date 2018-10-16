@@ -1,5 +1,5 @@
 from lazy_object_proxy import Proxy
-from lazy_load import *
+from lazy_load import lazy, lz, lazy_func, lf, ℒ, lazy_class, lc, force_eval, fe
 
 
 def test_aliases():
@@ -84,18 +84,22 @@ def test_lazy_class():
             evaluated = True
             return self._n + m
 
-        def sub(self, m) -> None: # Return type is None: This function should not be lazy evaluated
+        def sub(self, m) -> None:
+            # Return type is None: This function should not be lazy evaluated
             nonlocal evaluated
             evaluated = True
             return self._n - m
 
         @lazy_func
-        def mul(self, m) -> None: # Return type is None: This function should not be lazy evaluated; BUT there is the decorater: it makes the function lazy
+        def mul(self, m) -> None:
+            # Return type is None: This function should not be lazy evaluated;
+            # BUT there is the decorater: it makes the function lazy
             nonlocal evaluated
             evaluated = True
             return self._n * m
 
-        def _div(self, m) -> int: # Non-public functions are never made lazy by lazy_class
+        def _div(self, m) -> int:
+            # Non-public functions are never made lazy by lazy_class
             nonlocal evaluated
             evaluated = True
             return self._n // m
@@ -134,6 +138,7 @@ def test_force_eval_on_objects():
     def do_something(x, y):
         nonlocal evaluated
         evaluated = True
+        return x + y
 
     res = lazy(do_something, 1, 2)
     assert not evaluated

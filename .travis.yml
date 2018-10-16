@@ -4,7 +4,11 @@ python:
   - "3.6-dev"  # 3.6 development branch
   - "3.7-dev"  # 3.7 development branch
 install:
-  - pip install -r requirements.txt
+  - pip install -r requirements.txt pytest pylint mypy
 script:
-  - python -mpytest tests
+  - python -mpytest ./tests
+  - python -mpylint ./lazy_load
+  - python -mmypy ./lazy_load --ignore-missing-imports
+  - find ./tests -name '*.py' | xargs python -mpylint --disable=missing-docstring,invalid-name,protected-access
+  - find ./tests -name '*.py' | xargs python -mmypy --ignore-missing-imports
 
