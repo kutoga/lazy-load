@@ -15,7 +15,7 @@ def read(filename):
 
 setup(
     name="lazy_load",
-    version="0.8.1",
+    version="0.8.2",
     url="https://github.com/kutoga/lazy-load",
     license='MIT',
 
