@@ -1,8 +1,7 @@
 from lazy_object_proxy import Proxy
 from lazy_load import lazy, lz, lazy_func, lf, ℒ, lazy_class, lc, force_eval, fe
 
-
-def test_aliases():
+def test_aliases() -> None:
     assert lazy is lz
 
     assert lazy_func is lf
@@ -12,9 +11,9 @@ def test_aliases():
 
     assert force_eval is fe
 
-def test_lazy_simple_expression_evaluation():
+def test_lazy_simple_expression_evaluation() -> None:
     evaluated = False
-    def add(x, y):
+    def add(x: int, y: int) -> int:
         nonlocal evaluated
         evaluated = True
         return x + y
@@ -26,9 +25,9 @@ def test_lazy_simple_expression_evaluation():
     assert evaluated
     assert isinstance(res, int)
 
-def test_lazy_function_with_eagle_argument_evaluation():
+def test_lazy_function_with_eagle_argument_evaluation() -> None:
     evaluated = False
-    def add(x, y):
+    def add(x: int, y: int) -> int:
         nonlocal evaluated
         evaluated = True
         return x + y
@@ -40,9 +39,9 @@ def test_lazy_function_with_eagle_argument_evaluation():
     assert evaluated
     assert isinstance(res, int)
 
-def test_lazy_function_evaluation():
+def test_lazy_function_evaluation() -> None:
     evaluated = False
-    def add(x, y):
+    def add(x: int, y: int) -> int:
         nonlocal evaluated
         evaluated = True
         return x + y
@@ -55,11 +54,11 @@ def test_lazy_function_evaluation():
     assert evaluated
     assert isinstance(res, int)
 
-def test_lazy_function_decorator():
+def test_lazy_function_decorator() -> None:
     evaluated = False
 
     @lazy_func
-    def lazy_add(x, y):
+    def lazy_add(x: int, y: int) -> int:
         nonlocal evaluated
         evaluated = True
         return x + y
@@ -71,34 +70,34 @@ def test_lazy_function_decorator():
     assert evaluated
     assert isinstance(res, int)
 
-def test_lazy_class():
+def test_lazy_class() -> None:
     evaluated = False
 
     @lazy_class
     class LazyClass:
-        def __init__(self, n):
+        def __init__(self, n: int):
             self._n = n
 
-        def add(self, m) -> int:
+        def add(self, m: int) -> int:
             nonlocal evaluated
             evaluated = True
             return self._n + m
 
-        def sub(self, m) -> None:
+        def sub(self, m: int) -> None:
             # Return type is None: This function should not be lazy evaluated
             nonlocal evaluated
             evaluated = True
-            return self._n - m
+            return self._n - m  # type: ignore
 
         @lazy_func
-        def mul(self, m) -> None:
+        def mul(self, m: int) -> None:
             # Return type is None: This function should not be lazy evaluated;
             # BUT there is the decorater: it makes the function lazy
             nonlocal evaluated
             evaluated = True
-            return self._n * m
+            return self._n * m  # type: ignore
 
-        def _div(self, m) -> int:
+        def _div(self, m: int) -> int:
             # Non-public functions are never made lazy by lazy_class
             nonlocal evaluated
             evaluated = True
@@ -114,13 +113,13 @@ def test_lazy_class():
     assert isinstance(res, int)
 
     evaluated = False
-    res = lazy_obj.sub(2)
+    res = lazy_obj.sub(2)   # type: ignore
     assert not isinstance(res, Proxy)
     assert evaluated
     assert res == -1
 
     evaluated = False
-    res = lazy_obj.mul(2)
+    res = lazy_obj.mul(2)   # type: ignore
     assert not evaluated
     assert isinstance(res, Proxy)
     assert res == 2
@@ -133,9 +132,9 @@ def test_lazy_class():
     assert evaluated
     assert res == 1
 
-def test_force_eval_on_objects():
+def test_force_eval_on_objects() -> None:
     evaluated = False
-    def do_something(x, y):
+    def do_something(x: int, y: int) -> int:
         nonlocal evaluated
         evaluated = True
         return x + y
@@ -145,9 +144,9 @@ def test_force_eval_on_objects():
     force_eval(res)
     assert evaluated
 
-def test_force_eval_on_callables():
+def test_force_eval_on_callables() -> None:
     evaluated = False
-    def do_something():
+    def do_something() -> None:
         nonlocal evaluated
         evaluated = True
     do_something_lazy = ℒ[do_something]
@@ -155,9 +154,9 @@ def test_force_eval_on_callables():
     assert fe(do_something_lazy) is do_something
     assert not evaluated
 
-def test_multiple_lazy_on_expression():
+def test_multiple_lazy_on_expression() -> None:
     evaluated = False
-    def add(x, y):
+    def add(x: int, y: int) -> int:
         nonlocal evaluated
         evaluated = True
         return x + y
@@ -178,9 +177,9 @@ def test_multiple_lazy_on_expression():
     assert res == 3
     assert evaluated
 
-def test_multiple_lazy_onfunction():
+def test_multiple_lazy_onfunction() -> None:
     evaluated = False
-    def add(x, y):
+    def add(x: int, y: int) -> int:
         nonlocal evaluated
         evaluated = True
         return x + y

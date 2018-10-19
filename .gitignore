@@ -36,5 +36,6 @@ nosetests.xml
 .pydevproject
 
 .venv
+.mypy_cache
 dist
 

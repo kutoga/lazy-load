@@ -8,7 +8,7 @@ install:
 script:
   - python -mpytest ./tests
   - python -mpylint ./lazy_load
-  - python -mmypy ./lazy_load --ignore-missing-imports
+  - python -mmypy ./lazy_load --ignore-missing-imports --disallow-untyped-defs
   - find ./tests -name '*.py' | xargs python -mpylint --disable=missing-docstring,invalid-name,protected-access
-  - find ./tests -name '*.py' | xargs python -mmypy --ignore-missing-imports
+  - find ./tests -name '*.py' | xargs python -mmypy --ignore-missing-imports --disallow-untyped-defs
 
