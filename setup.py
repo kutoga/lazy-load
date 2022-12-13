@@ -15,7 +15,7 @@ def read(filename):
 
 setup(
     name="lazy_load",
-    version="0.8.2",
+    version="0.8.3",
     url="https://github.com/kutoga/lazy-load",
     license='MIT',
 
@@ -26,11 +26,10 @@ setup(
                 "of expressions. Additional functions and wrappers allow it to easily " +\
                 "use the lazy evaluation for functions and classes.",
     long_description=read("README.rst"),
-
     packages=find_packages(exclude=('tests',)),
-
     install_requires=['lazy-object-proxy>=1.3.1'],
-
+    test_suite="tests",
+    tests_require=['pytest'],
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'License :: OSI Approved :: MIT License',
@@ -38,6 +37,10 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
     ]
 )
 

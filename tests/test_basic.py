@@ -193,3 +193,4 @@ def test_multiple_lazy_onfunction() -> None:
     assert not evaluated
     assert res == 3
     assert evaluated
+
