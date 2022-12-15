@@ -11,7 +11,7 @@
 
 A minimalistic interface that allows lazy evaluation of expressions and function calls.
 
-Note: This small library is highly based on `python-lazy-object-proxy`.
+Note: This small library is heavily based on `python-lazy-object-proxy`.
 
 Why using ℒazy-ℒoad? Lazy loading in general may make some software implementations much more efficient.
 Especially if it is not known if some data has to be loaded or not. Often the resulting code is less efficient,

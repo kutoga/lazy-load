@@ -12,3 +12,4 @@ __author__ = 'Benjamin Bruno Meier <benjamin.meier70@gmail.com>'
 
 # __all__ is not used, because it is not possible to include there "ℒ":
 # AttributeError: module 'lazy_load' has no attribute 'ℒ'
+
