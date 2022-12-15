@@ -1,9 +1,0 @@
-{
-    "python.pythonPath": "C:\\Users\\bmeier\\Anaconda2\\envs\\py36\\python.exe",
-    "python.unitTest.pyTestArgs": [
-        "tests"
-    ],
-    "python.unitTest.unittestEnabled": false,
-    "python.unitTest.nosetestsEnabled": false,
-    "python.unitTest.pyTestEnabled": true
-}
